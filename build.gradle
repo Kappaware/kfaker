@@ -35,6 +35,8 @@ dependencies {
     compile "log4j:log4j:$log4jVersion"
     compile "org.apache.kafka:kafka-clients:$kafkaClientVersion"    
  	compile "net.sf.jopt-simple:jopt-simple:$joptVersion"
+ 	compile "com.github.javafaker:javafaker:0.12"
+    compile "com.fasterxml.jackson.jr:jackson-jr-objects:$jacksonJrVersion"
     testCompile "junit:junit:$junitVersion"
 }
 

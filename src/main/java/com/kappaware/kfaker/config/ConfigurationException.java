@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+package com.kappaware.kfaker.config;
 
+@SuppressWarnings("serial")
+public class ConfigurationException extends Exception {
 
-version=0.1.0
+	public ConfigurationException(String m) {
+		super(m);
+	}
 
-sl4jApiVersion=1.7.21
-sl4jLog4jVersion=1.7.21
-log4jVersion=1.2.14
-
-junitVersion=4.12
-joptVersion=5.0.1
-kafkaClientVersion=0.10.0.0
-jacksonJrVersion=2.8.1
+}
