@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.ProducerConfig;
 
 
@@ -39,7 +40,8 @@ public class ProducerPropertiesHelper {
 		ProducerConfig.MAX_BLOCK_MS_CONFIG, 
 		ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 
 		ProducerConfig.INTERCEPTOR_CLASSES_CONFIG,
-		ProducerConfig.CLIENT_ID_CONFIG 
+		ProducerConfig.CLIENT_ID_CONFIG, 
+		CommonClientConfigs.SECURITY_PROTOCOL_CONFIG
 	}));
 
 	static Set<String> protectedProducerProperties = new HashSet<String>(Arrays.asList(new String[] { 
@@ -56,7 +58,7 @@ public class ProducerPropertiesHelper {
 		for (String prop : propertyStrings) {
 			String[] prp = prop.trim().split("=");
 			if (prp.length != 2) {
-				throw new ConfigurationException(String.format("Target property must be as name=value. Found '%s'", prop));
+				throw new ConfigurationException(String.format("Property must be as name=value. Found '%s'", prop));
 			}
 			String propName = prp[0].trim();
 			if (forceProperties) {
