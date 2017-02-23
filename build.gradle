@@ -15,12 +15,15 @@
  */
  
 
+plugins {
+  id 'nebula.ospackage' version '3.4.0'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 
 
-
-defaultTasks 'fatJar'
+defaultTasks 'rpm'
 
 
 repositories {
@@ -52,3 +55,33 @@ task fatJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
+
+
+task rpm(type: Rpm) {
+	summary 'Kafka fake message generator'
+	packageName 'kfaker'
+	version versionForRpm
+	arch NOARCH
+	vendor 'BROADSoftware'
+	license 'Apache 2.0'
+	os LINUX
+	release '1'
+	packageDescription 'kfaker is a small tool aimed to generate kafka message with configurable rate.'
+    
+   	from(fatJar.outputs.files) {
+	    into '/opt/kfaker'
+	    user 'root'
+		group 'root'
+		//rename "${fatJarBaseName}(.+).jar", "${fatJarBaseName}.jar"
+	    fileMode 0644
+    }
+    
+   	from('scripts/packages/kfaker') { into '/usr/bin'; user 'root'; group 'root'; fileMode 0755  }
+   	from('scripts/packages/log4j.xml') { into '/etc/kfaker'; user 'root'; group 'root'; fileMode 0644  }
+   	from('scripts/packages/setenv.sh') { into '/etc/kfaker'; user 'root'; group 'root'; fileMode 0644    }
+   	from('scripts/packages/kafka_client_jaas.conf') { into '/etc/kfaker'; user 'root'; group 'root'; fileMode 0644    }
+}
+
+
+
+
