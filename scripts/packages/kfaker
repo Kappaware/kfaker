@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-prog=kdescribe
+prog=kfaker
 jar=$(echo /opt/kfaker/kfaker*.jar)
 
 OPTS=""
@@ -81,6 +81,6 @@ checkJar() {
 
 checkJava
 checkJar
-$java -jar $JOPTS $jar $OPTS $*
+$java -jar $JOPTS $jar $OPTS "$@"
 
 
